@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>سرای اشتراک</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body
+  data-dl="{{ .downloadByte }}"
+  data-ul="{{ .uploadByte }}"
+  data-cap="{{ .totalByte }}"
+  data-exp="{{ .expire }}"
+  data-lo="{{ .lastOnline }}"
+  data-en="{{ .enabled }}"
+  data-on="{{ .isOnline }}"
+  data-sub="{{ .subUrl }}"
+  data-ti="{{ .subTitle }}"
+  data-sup="{{ .subSupportUrl }}"
+  data-ann="{{ .announce }}">
+
+<div class="sea" aria-hidden="true"><div class="bubbles" id="bubbles"></div></div>
+
+<main class="shell">
+<div class="shell-in reveal">
+
+  <header class="topbar">
+    <div class="brand"><h1 data-t="title">سرای اشتراک</h1></div>
+    <div class="statusbar">
+      <span class="presence unknown" id="presence"><span class="dot"></span><span id="presenceTx">بررسی...</span></span>
+      <button class="roundbtn" id="soundTg" type="button" aria-label="صدا">♪</button>
+      <button class="roundbtn" id="modeTg" type="button" aria-label="شب و روز">☾</button>
+    </div>
+  </header>
+
+  <div class="alert off" id="offBox" hidden>
+    <div class="alert-t">✕ این اشتراک خاموش است</div>
+    دسترسی این پیکربندی بسته شده. برای پیگیری با پشتیبانی در تماس باش.
+  </div>
+
+  <div class="alert info" id="msgBox" hidden>
+    <div class="alert-t">✦ پیام</div>
+    <span id="msgTx"></span>
+  </div>
+
+  <div class="alert warn" id="dangerBox" hidden>
+    <div class="alert-t">◉ کلاف داره تموم میشه!</div>
+    گربه‌ی اشتراکت حوصله‌ش سر رفته! با یه تمدید کوچیک سرگرمش کن.
+    <div class="rowbtns"><a class="abtn hot" id="dangerSup" href="#" hidden>سرگرمش می‌کنم</a></div>
+  </div>
+
+  <section class="tankcard">
+    <div class="tanktop">
+      <svg class="tank" id="stage" data-mood="idle" data-life="ok" viewBox="0 0 320 260" role="img" aria-label="گربه و کلاف — حجم باقی‌مانده">
+        <defs>
+          <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff7e8"/><stop offset="1" stop-color="#f0d3a6"/>
+          </linearGradient>
+          <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d99a55"/><stop offset="1" stop-color="#a96a33"/>
+          </linearGradient>
+          <linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7ecfff"/><stop offset="1" stop-color="#e2f6ff"/>
+          </linearGradient>
+          <linearGradient id="skyNight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#101743"/><stop offset="1" stop-color="#2b3370"/>
+          </linearGradient>
+          <radialGradient id="yarnG" cx="35%" cy="30%" r="85%">
+            <stop offset="0" stop-color="#ffe0b3"/><stop offset=".45" stop-color="#ff8a5c"/><stop offset="1" stop-color="#cf4726"/>
+          </radialGradient>
+          <radialGradient id="yarnLowG" cx="35%" cy="30%" r="85%">
+            <stop offset="0" stop-color="#ececec"/><stop offset=".6" stop-color="#b2b2b2"/><stop offset="1" stop-color="#7c7c7c"/>
+          </radialGradient>
+          <linearGradient id="furG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd2a0"/><stop offset="1" stop-color="#e78f45"/>
+          </linearGradient>
+          <linearGradient id="furD" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8934a"/><stop offset="1" stop-color="#bd6327"/>
+          </linearGradient>
+          <radialGradient id="rugG" cx="50%" cy="45%" r="70%">
+            <stop offset="0" stop-color="#ffa07e"/><stop offset="1" stop-color="#d65a3a"/>
+          </radialGradient>
+          <linearGradient id="leafG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8fd6a0"/><stop offset="1" stop-color="#4f9b62"/>
+          </linearGradient>
+        </defs>
+
+        <!-- wall -->
+        <rect x="0" y="0" width="320" height="152" fill="url(#wallG)"/>
+        <g fill="#0b1e2e" opacity=".05">
+          <circle cx="20" cy="24" r="2.4"/><circle cx="60" cy="18" r="2.4"/><circle cx="100" cy="24" r="2.4"/>
+          <circle cx="140" cy="18" r="2.4"/><circle cx="180" cy="24" r="2.4"/><circle cx="40" cy="60" r="2.4"/>
+          <circle cx="120" cy="60" r="2.4"/><circle cx="160" cy="60" r="2.4"/><circle cx="80" cy="96" r="2.4"/><circle cx="160" cy="96" r="2.4"/>
+        </g>
+        <rect x="0" y="136" width="320" height="18" fill="#fffaf0" stroke="#0b1e2e" stroke-width="3"/>
+        <!-- floor -->
+        <rect x="0" y="152" width="320" height="108" fill="url(#floorG)"/>
+        <g stroke="#0b1e2e" stroke-width="2" opacity=".16">
+          <path d="M0 176 H320 M0 200 H320 M0 226 H320 M0 250 H320"/>
+          <path d="M80 152 V176 M200 152 V176 M40 176 V200 M160 176 V200 M280 176 V200 M120 200 V226 M240 200 V226 M60 226 V260 M180 226 V260"/>
+        </g>
+        <polygon points="218,108 302,108 320,232 178,232" fill="#fff" opacity=".15"/>
+
+        <!-- window -->
+        <g id="win">
+          <rect x="212" y="14" width="92" height="94" rx="14" fill="#fffaf0" stroke="#0b1e2e" stroke-width="4"/>
+          <rect class="skyD" x="220" y="22" width="76" height="78" rx="9" fill="url(#skyDay)" stroke="#0b1e2e" stroke-width="3"/>
+          <rect class="skyN" x="220" y="22" width="76" height="78" rx="9" fill="url(#skyNight)" stroke="#0b1e2e" stroke-width="3" opacity="0"/>
+          <circle class="sun" cx="278" cy="40" r="11" fill="#fff3b0" stroke="#0b1e2e" stroke-width="2.5"/>
+          <circle class="moon" cx="278" cy="40" r="10" fill="#fff3c4" stroke="#0b1e2e" stroke-width="2.5" opacity="0"/>
+          <circle class="mooncut" cx="274" cy="37" r="8" fill="#232a5c" opacity="0"/>
+          <g class="stars" opacity="0">
+            <circle cx="232" cy="36" r="1.4" fill="#fff"/><circle cx="244" cy="58" r="1.2" fill="#fff"/>
+            <circle cx="258" cy="34" r="1.4" fill="#fff"/><circle cx="268" cy="66" r="1.2" fill="#fff"/>
+            <circle cx="284" cy="58" r="1.4" fill="#fff"/><circle cx="238" cy="78" r="1.2" fill="#fff"/>
+          </g>
+          <g class="cloud c1" opacity=".95">
+            <ellipse cx="242" cy="54" rx="13" ry="6" fill="#fff"/><ellipse cx="254" cy="51" rx="9" ry="5.5" fill="#fff"/>
+          </g>
+          <g class="cloud c2" opacity=".9">
+            <ellipse cx="266" cy="74" rx="12" ry="5.5" fill="#fff"/><ellipse cx="276" cy="71" rx="8" ry="5" fill="#fff"/>
+          </g>
+          <path d="M258 22 V100 M220 61 H296" stroke="#0b1e2e" stroke-width="3"/>
+          <rect x="204" y="106" width="108" height="12" rx="6" fill="#fffaf0" stroke="#0b1e2e" stroke-width="3.5"/>
+          <path class="curtainL" d="M208 16 q-12 42 0 92" fill="none" stroke="#e14f6e" stroke-width="10" stroke-linecap="round"/>
+          <path class="curtainR" d="M308 16 q12 42 0 92" fill="none" stroke="#e14f6e" stroke-width="10" stroke-linecap="round"/>
+          <path d="M208 16 q-12 42 0 92 M308 16 q12 42 0 92" fill="none" stroke="#0b1e2e" stroke-width="2" opacity=".35"/>
+        </g>
+
+        <!-- wall frame -->
+        <g opacity=".95">
+          <rect x="20" y="28" width="56" height="46" rx="8" fill="#fff" stroke="#0b1e2e" stroke-width="3.5"/>
+          <path d="M28 62 q10 -14 20 -8 q10 6 20 -2" fill="none" stroke="#4f9b62" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="38" cy="48" r="5" fill="#ffd166" stroke="#0b1e2e" stroke-width="2"/>
+          <circle cx="62" cy="42" r="4" fill="#e14f6e" opacity=".9"/>
+        </g>
+
+        <!-- plant -->
+        <g id="plant">
+          <ellipse cx="34" cy="206" rx="20" ry="6" fill="#0b1e2e" opacity=".2"/>
+          <path d="M22 206 v-14 h24 v14 z" fill="#b9643c" stroke="#0b1e2e" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M20 192 h28 l-3 6 h-22 z" fill="#e08a5a" stroke="#0b1e2e" stroke-width="3" stroke-linejoin="round"/>
+          <g fill="url(#leafG)" stroke="#0b1e2e" stroke-width="2.5">
+            <ellipse class="leaf l1" cx="26" cy="172" rx="6" ry="14" transform="rotate(-18 26 172)"/>
+            <ellipse class="leaf l2" cx="34" cy="166" rx="6.5" ry="17"/>
+            <ellipse class="leaf l3" cx="42" cy="172" rx="6" ry="14" transform="rotate(18 42 172)"/>
+          </g>
+        </g>
+
+        <!-- rug -->
+        <ellipse cx="158" cy="224" rx="122" ry="27" fill="#0b1e2e" opacity=".18"/>
+        <ellipse cx="158" cy="220" rx="118" ry="26" fill="url(#rugG)" stroke="#0b1e2e" stroke-width="4"/>
+        <ellipse cx="158" cy="220" rx="92" ry="19" fill="none" stroke="#fff" stroke-width="3" opacity=".55" stroke-dasharray="10 8"/>
+        <ellipse cx="158" cy="220" rx="64" ry="12" fill="none" stroke="#0b1e2e" stroke-width="2" opacity=".3"/>
+
+        <!-- contact shadows -->
+        <ellipse cx="116" cy="224" rx="64" ry="10" fill="#0b1e2e" opacity=".22"/>
+        <ellipse id="yarnShadow" cx="238" cy="224" rx="42" ry="8" fill="#0b1e2e" opacity=".22"/>
+
+        <!-- yarn string -->
+        <path id="yarnString" d="M210 198 Q176 210 142 194 Q126 186 116 188" fill="none" stroke="#0b1e2e" stroke-width="5" stroke-linecap="round"/>
+        <path id="yarnString2" d="M210 198 Q176 210 142 194 Q126 186 116 188" fill="none" stroke="#ff8a5c" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 6"/>
+        <path id="yarnLoose" d="M210 198 q22 10 30 -6 q6 -12 -8 -14" fill="none" stroke="#0b1e2e" stroke-width="4" stroke-linecap="round" opacity="0"/>
+        <path id="yarnLoose2" d="M210 198 q22 10 30 -6 q6 -12 -8 -14" fill="none" stroke="#ff8a5c" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="5 5" opacity="0"/>
+
+        <!-- tail -->
+        <path id="tail" d="M64 208 Q30 210 28 180 Q27 162 46 158" fill="none" stroke="url(#furD)" stroke-width="21" stroke-linecap="round"/>
+        <path d="M64 208 Q30 210 28 180 Q27 162 46 158" fill="none" stroke="#0b1e2e" stroke-width="2.5" opacity=".35"/>
+        <path d="M34 176 q-4 4 -3 9 M32 168 q-4 5 -3 10 M40 162 q-3 5 -2 10" stroke="#0b1e2e" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+        <path d="M38 162 q-3 5 -2 10" stroke="#0b1e2e" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+
+        <!-- cat body -->
+        <g id="catBody">
+          <ellipse cx="120" cy="194" rx="60" ry="35" fill="url(#furG)" stroke="#0b1e2e" stroke-width="4"/>
+          <ellipse cx="106" cy="206" rx="30" ry="14" fill="#fff" opacity=".45"/>
+          <path d="M86 170 q6 -10 14 -12 M102 164 q5 -8 12 -10 M152 166 q8 2 12 10 M162 178 q7 4 9 12" stroke="#0b1e2e" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>
+          <ellipse cx="78" cy="212" rx="17" ry="10" fill="url(#furG)" stroke="#0b1e2e" stroke-width="3.5"/>
+          <path d="M72 212 v6 M79 212 v6" stroke="#0b1e2e" stroke-width="2" stroke-linecap="round"/>
+          <g id="pawPlay">
+            <ellipse cx="166" cy="194" rx="15" ry="11" fill="#ffcf9a" stroke="#0b1e2e" stroke-width="3.5"/>
+            <ellipse cx="154" cy="202" rx="14" ry="10" fill="#ffcf9a" stroke="#0b1e2e" stroke-width="3.5"/>
+            <path d="M161 194 v7 M167 194 v7 M149 202 v6 M155 202 v6" stroke="#0b1e2e" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="166" cy="192" rx="5" ry="3.5" fill="#ff9db1" opacity=".85"/>
+          </g>
+        </g>
+
+        <!-- yarn ball -->
+        <g id="yarnBall" transform="translate(238,190)">
+          <circle id="yarnCirc" r="35" fill="url(#yarnG)" stroke="#0b1e2e" stroke-width="4"/>
+          <g fill="none" stroke="#0b1e2e" opacity=".55">
+            <path d="M-33 -10 Q-10 -23 12 -17 Q27 -13 33 2" stroke-width="2.6"/>
+            <path d="M-31 8 Q-8 -2 14 4 Q27 8 31 20" stroke-width="2.6"/>
+            <path d="M-14 -31 Q-8 -10 0 8 Q6 23 4 35" stroke-width="2.6"/>
+            <path d="M14 -31 Q8 -12 12 8 Q14 23 8 33" stroke-width="2.4" opacity=".7"/>
+            <path d="M-33 -2 Q-14 -6 4 -12" stroke-width="2.2" opacity=".6"/>
+          </g>
+          <path d="M-27 -19 Q-12 -6 -2 8" fill="none" stroke="#fff" stroke-width="5.5" opacity=".55" stroke-linecap="round"/>
+          <circle cx="-10" cy="-12" r="4.5" fill="#fff" opacity=".5"/>
+        </g>
+
+        <!-- cat head -->
+        <g id="catHead">
+          <g id="earL">
+            <polygon points="52,130 44,94 72,112" fill="url(#furG)" stroke="#0b1e2e" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="54,122 50,102 64,112" fill="#ff9db1" opacity=".95"/>
+          </g>
+          <g id="earR">
+            <polygon points="114,130 122,94 94,112" fill="url(#furG)" stroke="#0b1e2e" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="112,122 116,102 102,112" fill="#ff9db1" opacity=".95"/>
+          </g>
+          <circle cx="83" cy="150" r="39" fill="url(#furG)" stroke="#0b1e2e" stroke-width="4"/>
+          <path d="M69 120 l6 10 l6 -10 l6 10 l6 -10" fill="none" stroke="#0b1e2e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
+          <path d="M47 152 l-10 4 l9 6 M119 152 l10 4 l-9 6" fill="none" stroke="#0b1e2e" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="83" cy="164" rx="17" ry="12.5" fill="#fff" opacity=".9"/>
+          <g class="eyewrap">
+            <g id="eyeL"><ellipse cx="69" cy="150" rx="7.5" ry="8.5" fill="#fff" stroke="#0b1e2e" stroke-width="3"/><circle class="pupil" cx="70" cy="151" r="3.6" fill="#0b1e2e"/><circle class="hl" cx="71.5" cy="149" r="1.3" fill="#fff"/></g>
+            <g id="eyeR"><ellipse cx="97" cy="150" rx="7.5" ry="8.5" fill="#fff" stroke="#0b1e2e" stroke-width="3"/><circle class="pupil" cx="98" cy="151" r="3.6" fill="#0b1e2e"/><circle class="hl" cx="99.5" cy="149" r="1.3" fill="#fff"/></g>
+          </g>
+          <g class="xxx"><path d="M63 145 l12 12 M75 145 l-12 12" fill="none" stroke="#0b1e2e" stroke-width="3.4" stroke-linecap="round"/><path d="M91 145 l12 12 M103 145 l-12 12" fill="none" stroke="#0b1e2e" stroke-width="3.4" stroke-linecap="round"/></g>
+          <ellipse cx="61" cy="160" rx="6" ry="4" fill="#ff9db1" opacity=".55"/>
+          <ellipse cx="105" cy="160" rx="6" ry="4" fill="#ff9db1" opacity=".55"/>
+          <path d="M79 160 h8 l-4 5 z" fill="#e14f6e" stroke="#0b1e2e" stroke-width="2.2" stroke-linejoin="round"/>
+          <path class="mouth" d="M83 165 q-5 6 -11 4 M83 165 q5 6 11 4" fill="none" stroke="#0b1e2e" stroke-width="2.8" stroke-linecap="round"/>
+          <g stroke="#0b1e2e" stroke-width="2.2" stroke-linecap="round" opacity=".65">
+            <path d="M49 154 l-20 -4 M50 161 l-19 4 M117 154 l20 -4 M116 161 l19 4"/>
+          </g>
+          <g class="drops"><ellipse cx="67" cy="164" rx="3.4" ry="5" fill="#8fdcff" stroke="#0b1e2e" stroke-width="2.2"/><ellipse cx="99" cy="164" rx="3.4" ry="5" fill="#8fdcff" stroke="#0b1e2e" stroke-width="2.2"/></g>
+          <g class="sweat"><path d="M115 126 q5 7 5 10.5 a5 5 0 0 1 -10 0 q0 -3.5 5 -10.5z" fill="#8fdcff" stroke="#0b1e2e" stroke-width="2" stroke-linejoin="round"/></g>
+          <g class="glint"><path d="M130 104 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#fff" stroke="#0b1e2e" stroke-width="2.2" stroke-linejoin="round"/></g>
+          <g class="snore"><text x="126" y="114">z</text><text x="138" y="98" font-size="13">z</text></g>
+        </g>
+
+        <!-- dust motes -->
+        <circle class="dust" cx="200" cy="140" r="2.4" fill="#fff" opacity=".8"/>
+        <circle class="dust d2" cx="190" cy="118" r="1.8" fill="#fff" opacity=".8"/>
+        <circle class="dust d3" cx="44" cy="110" r="2" fill="#fff" opacity=".7"/>
+        <rect class="nightVeil" x="0" y="0" width="320" height="260" fill="#101743" opacity="0"/>
+      </svg>
+    </div>
+
+    <div class="drawerbox">
+      <div class="hero">
+        <div class="hero-k">🧶 کلاف باقی‌مانده</div>
+        <div class="hero-v" id="leftTx">—</div>
+        <div class="hero-s">از <span id="capTx">—</span> • <span id="tickTx">—</span></div>
+        <div class="gauge"><i id="gaugeFill"></i></div>
+      </div>
+      <div class="grid4">
+        <div class="cell"><div class="cell-k">▼ دانلود</div><div class="cell-v" id="dlTx">—</div></div>
+        <div class="cell"><div class="cell-k">▲ آپلود</div><div class="cell-v" id="ulTx">—</div></div>
+        <div class="cell"><div class="cell-k">∑ مصرف کل</div><div class="cell-v" id="useTx">۰</div></div>
+        <div class="cell"><div class="cell-k">◷ اعتبار</div><div class="cell-v" id="dayTx">—</div><div class="cell-h" id="expTx">—</div></div>
+      </div>
+      <div class="actiongrid">
+        <button class="abtn hot" type="button" id="copyMain">کپی لینک اشتراک</button>
+        <button class="abtn cool" type="button" id="qrMain">نمایش QR</button>
+        <a class="abtn line" id="jsonA" href="#">JSON</a>
+        <a class="abtn grape" id="clashA" href="#">Clash</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="listcard">
+    <div class="listhead"><span>◈ کانفیگ‌ها</span><span class="sp"></span><span class="nchip" id="cfgN">—</span></div>
+    <div id="rows"></div>
+    <noscript><div class="tiny">جاوااسکریپت خاموش است:</div>{{ range .links }}<textarea readonly rows="2" class="ltrbox" style="width:100%">{{ . }}</textarea>{{ end }}</noscript>
+  </section>
+
+  <footer class="tail"><a class="abtn hot" id="tailSup" href="#" hidden>گفت‌وگو با پشتیبانی</a></footer>
+</div>
+</main>
+
+<div id="linkSrc" hidden>{{ range $i, $link := .links }}<div class="lsrc"><span class="u">{{ $link }}</span><span class="e">{{ if lt $i (len $.emails) }}{{ index $.emails $i }}{{ end }}</span></div>{{ end }}</div>
+
+<div class="sheet" id="qrSheet" hidden>
+  <div class="sheet-in"><div class="sheet-card">
+    <h3>اسکن کن!</h3>
+    <div class="qrsub ltr" id="qrSub"></div>
+    <div class="qrbox" id="qrBox"></div>
+    <div class="rowbtns"><button class="abtn cool" type="button" id="qrCp">کپی لینک</button><button class="abtn hot" type="button" id="qrX">بستن</button></div>
+  </div></div>
+</div>
+
+<div class="toastbar"><div class="toastmsg" id="toastMsg"><span class="ttx"></span></div></div>
+<script src="./app.js"></script>
+</body>
+</html>
